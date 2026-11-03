@@ -1,0 +1,9 @@
+# フレットノート
+
+> ギターコードの押さえ方図解、カポ計算、定番コード進行の無料サイト（日本語）。
+
+## 主なページ
+- [コード辞典](https://tsuchida-dev73.github.io/fretnote/chords/): 全84コードの押さえ方（TAB表記・構成音・カポ代替）
+- [カポ計算](https://tsuchida-dev73.github.io/fretnote/capo/): 原曲キーとカポ位置から押さえる形を算出
+- [コード進行](https://tsuchida-dev73.github.io/fretnote/progressions/): 王道進行など6種を全12キーで
+- [曲を弾く](https://tsuchida-dev73.github.io/fretnote/player/): パブリックドメイン曲とオリジナル曲のコード譜

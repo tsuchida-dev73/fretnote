@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tsuchida-dev73.github.io/fretnote/sitemap.xml

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>カポ計算ツール｜原曲キーから弾きやすいカポ位置を一発で</title>
+<meta name="description" content="原曲キーを選ぶだけで、カポ何フレットでどのコードの形を弾けばいいかがわかる無料ツール。全キーのカポ早見表つき。">
+<link rel="canonical" href="https://tsuchida-dev73.github.io/fretnote/capo/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="フレットノート">
+<meta property="og:title" content="カポ計算ツール｜原曲キーから弾きやすいカポ位置を一発で">
+<meta property="og:description" content="原曲キーを選ぶだけで、カポ何フレットでどのコードの形を弾けばいいかがわかる無料ツール。全キーのカポ早見表つき。">
+<meta property="og:url" content="https://tsuchida-dev73.github.io/fretnote/capo/">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Dela+Gothic+One&family=JetBrains+Mono:wght@500;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "フレットノート", "item": "https://tsuchida-dev73.github.io/fretnote/"}, {"@type": "ListItem", "position": 2, "name": "カポ計算", "item": "https://tsuchida-dev73.github.io/fretnote/capo/"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "カポを付けるとキーはどう変わる？", "acceptedAnswer": {"@type": "Answer", "text": "カポを1フレット付けるごとに、同じ形で押さえたときの音が半音ずつ上がります。例えばカポ2でGの形を弾くと、実際の音はAになります。"}}, {"@type": "Question", "name": "原曲キーがBbのときはカポ何番？", "acceptedAnswer": {"@type": "Answer", "text": "カポ1でAの形、カポ3でGの形、カポ6でEの形で弾けます。ローコードが多いGの形（カポ3）が弾きやすい定番です。"}}, {"@type": "Question", "name": "カポは何フレットまで使える？", "acceptedAnswer": {"@type": "Answer", "text": "7フレット程度までが一般的です。それ以上は弦長が短くなり、響きが軽くなります。"}}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "カポ計算ツール", "applicationCategory": "MusicApplication", "operatingSystem": "Web", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "JPY"}}</script>
+</head>
+<body>
+<header class="top"><div class="in">
+<a class="logo" href="../"><svg width="24" height="24" viewBox="0 0 26 26" aria-hidden="true"><rect x="3" y="2" width="20" height="22" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><g stroke="currentColor" stroke-width="1.2"><line x1="8" y1="2" x2="8" y2="24"/><line x1="13" y1="2" x2="13" y2="24"/><line x1="18" y1="2" x2="18" y2="24"/></g><line x1="3" y1="9" x2="23" y2="9" stroke="currentColor" stroke-width="2"/><circle cx="13" cy="14" r="2.6" fill="var(--accent)"/></svg>フレットノート</a>
+<nav class="gnav"><a href="../chords/">コード辞典</a><a href="../capo/">カポ計算</a><a href="../progressions/">コード進行</a><a href="../player/">曲を弾く</a></nav>
+</div></header>
+<main class="page"><nav class="crumbs" aria-label="パンくず"><a href="../">フレットノート</a> / <span>カポ計算</span></nav><article><h1>カポ計算ツール</h1><p class='lead'>原曲キーを選ぶと、カポ何フレットでどのコードの形を弾けばいいかが一覧で出ます。ローコード中心で弾ける組み合わせには「弾きやすい」が付きます。</p>
+<div class="tool" id="capo">
+  <div class="field"><label for="k">原曲キー（聞こえる音）</label><select id="k"></select></div>
+  <div class="field"><label for="m">メジャー／マイナー</label><select id="m"><option value="">メジャー</option><option value="m">マイナー</option></select></div>
+  <div id="res" class="res" aria-live="polite"></div>
+</div>
+<script>
+const N=["C","C#","D","Eb","E","F","F#","G","Ab","A","Bb","B"];
+const EASY_M=["C","D","E","G","A"], EASY_m=["Am","Em","Dm"];
+const k=document.getElementById("k"),m=document.getElementById("m"),res=document.getElementById("res");
+k.innerHTML=N.map((n,i)=>`<option value="${i}" ${i===10?"selected":""}>${n}</option>`).join("");
+function run(){const key=+k.value,q=m.value;let h="";
+ for(let c=0;c<=7;c++){const sh=N[(key-c+12)%12]+q;const easy=(q?EASY_m:EASY_M).includes(sh);
+  h+=`<div class="r${easy?" ok":""}"><span class="c">カポ${c}</span><span class="s">${sh} の形</span>${easy?'<span class="tag">弾きやすい</span>':""}</div>`}
+ res.innerHTML=h}
+k.onchange=m.onchange=run;run();
+</script><h2>カポ早見表</h2><p class='small'>行＝原曲キー、列＝カポ位置。マスの中が押さえる形のキー。</p><div class='tw'><table class='prog'><thead><tr><th>原曲</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th></tr></thead><tbody><tr><th>C</th><td>C</td><td>B</td><td>Bb</td><td>A</td><td>Ab</td><td>G</td><td>F#</td><td>F</td></tr><tr><th>C#</th><td>C#</td><td>C</td><td>B</td><td>Bb</td><td>A</td><td>Ab</td><td>G</td><td>F#</td></tr><tr><th>D</th><td>D</td><td>C#</td><td>C</td><td>B</td><td>Bb</td><td>A</td><td>Ab</td><td>G</td></tr><tr><th>Eb</th><td>Eb</td><td>D</td><td>C#</td><td>C</td><td>B</td><td>Bb</td><td>A</td><td>Ab</td></tr><tr><th>E</th><td>E</td><td>Eb</td><td>D</td><td>C#</td><td>C</td><td>B</td><td>Bb</td><td>A</td></tr><tr><th>F</th><td>F</td><td>E</td><td>Eb</td><td>D</td><td>C#</td><td>C</td><td>B</td><td>Bb</td></tr><tr><th>F#</th><td>F#</td><td>F</td><td>E</td><td>Eb</td><td>D</td><td>C#</td><td>C</td><td>B</td></tr><tr><th>G</th><td>G</td><td>F#</td><td>F</td><td>E</td><td>Eb</td><td>D</td><td>C#</td><td>C</td></tr><tr><th>Ab</th><td>Ab</td><td>G</td><td>F#</td><td>F</td><td>E</td><td>Eb</td><td>D</td><td>C#</td></tr><tr><th>A</th><td>A</td><td>Ab</td><td>G</td><td>F#</td><td>F</td><td>E</td><td>Eb</td><td>D</td></tr><tr><th>Bb</th><td>Bb</td><td>A</td><td>Ab</td><td>G</td><td>F#</td><td>F</td><td>E</td><td>Eb</td></tr><tr><th>B</th><td>B</td><td>Bb</td><td>A</td><td>Ab</td><td>G</td><td>F#</td><td>F</td><td>E</td></tr></tbody></table></div><aside class="gear"><h2>このページで役立つ道具</h2><ul><li><a href="https://www.amazon.co.jp/s?k=カポタスト ワンタッチ" rel="sponsored nofollow noopener" target="_blank">カポタスト（ワンタッチ式）</a><span>曲の途中でも素早く付け替えられる</span></li><li><a href="https://www.amazon.co.jp/s?k=クリップチューナー ギター" rel="sponsored nofollow noopener" target="_blank">クリップチューナー</a><span>カポを付けた後のチューニング確認に</span></li></ul></aside><section class="faq"><h2>よくある質問</h2><details><summary>カポを付けるとキーはどう変わる？</summary><p>カポを1フレット付けるごとに、同じ形で押さえたときの音が半音ずつ上がります。例えばカポ2でGの形を弾くと、実際の音はAになります。</p></details><details><summary>原曲キーがBbのときはカポ何番？</summary><p>カポ1でAの形、カポ3でGの形、カポ6でEの形で弾けます。ローコードが多いGの形（カポ3）が弾きやすい定番です。</p></details><details><summary>カポは何フレットまで使える？</summary><p>7フレット程度までが一般的です。それ以上は弦長が短くなり、響きが軽くなります。</p></details></section></article></main>
+<footer class="foot"><div class="in">
+<p><a href="../chords/">コード辞典</a> · <a href="../capo/">カポ計算</a> · <a href="../progressions/">コード進行</a> · <a href="../player/">曲を弾く</a> · <a href="../about/">このサイトについて</a></p>
+<p class="small">フレットノートは一部のリンクでアフィリエイトプログラムを利用しています。</p>
+</div></footer>
+</body>
+</html>
